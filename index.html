@@ -13,70 +13,49 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            padding: 20px;
+            background: #1a1a1a;
             color: white;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .header p {
-            opacity: 0.8;
-            font-size: 1.2em;
-        }
-
-        .voice-interface {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 40px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .voice-status {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .voice-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0 auto 20px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
+            padding: 20px;
+        }
+
+        .voice-container {
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .voice-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            border: 3px solid rgba(255, 255, 255, 0.1);
         }
 
         .voice-circle:hover {
             transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 80px rgba(102, 126, 234, 0.4);
         }
 
         .voice-circle.listening {
             animation: pulse 1.5s infinite;
             background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .voice-circle.speaking {
+            animation: speak 0.8s infinite;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
         }
 
         @keyframes pulse {
@@ -85,234 +64,94 @@
             100% { transform: scale(1); }
         }
 
-        .voice-prompt {
-            font-size: 1.3em;
-            text-align: center;
+        @keyframes speak {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            75% { transform: scale(0.95); }
+        }
+
+        .status-text {
+            font-size: 1.5em;
             margin-bottom: 20px;
             font-weight: 300;
+            opacity: 0.9;
         }
 
-        .conversation {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            max-height: 400px;
-            overflow-y: auto;
+        .instruction {
+            font-size: 1.1em;
+            opacity: 0.7;
+            margin-bottom: 30px;
+            line-height: 1.4;
         }
 
-        .message {
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            border-radius: 15px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .user-message {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            margin-left: 40px;
-            text-align: right;
-        }
-
-        .assistant-message {
+        .auto-start {
             background: rgba(255, 255, 255, 0.1);
-            margin-right: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .camera-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .camera-btn {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            border: none;
             padding: 15px 30px;
-            border-radius: 15px;
-            font-size: 18px;
+            border-radius: 25px;
+            border: none;
+            color: white;
+            font-size: 16px;
             cursor: pointer;
             margin: 10px;
             transition: all 0.3s ease;
-            font-weight: 600;
         }
 
-        .camera-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(79, 172, 254, 0.3);
-        }
-
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .quick-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 15px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-        }
-
-        .quick-btn:hover {
+        .auto-start:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
         }
 
-        .bins-summary {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-
-        .bin-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .bin-item:last-child {
-            border-bottom: none;
-        }
-
-        .bin-number {
-            font-weight: 600;
-            font-size: 1.1em;
-        }
-
-        .bin-contents {
-            opacity: 0.8;
-            font-size: 0.9em;
-            max-width: 60%;
-            text-align: right;
-        }
-
-        .siri-integration {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-        }
-
-        .siri-setup {
-            color: #4facfe;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-        }
-
-        #fileInput {
+        .hidden {
             display: none;
         }
 
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 8px;
-        }
-
-        .status-ready { background: #4facfe; }
-        .status-listening { background: #ff6b6b; }
-        .status-processing { background: #ffa726; }
-
-        @media (max-width: 768px) {
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-            
-            .user-message {
-                margin-left: 20px;
-            }
-            
-            .assistant-message {
-                margin-right: 20px;
+        @media (max-width: 480px) {
+            .voice-circle {
+                width: 150px;
+                height: 150px;
+                font-size: 3em;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🤖 Voice Garage Assistant</h1>
-            <p>Just talk to organize your bins</p>
+    <div class="voice-container">
+        <div id="voiceCircle" class="voice-circle" onclick="toggleVoice()">🎤</div>
+        <div id="statusText" class="status-text">Ready to listen</div>
+        <div class="instruction">
+            Say: "I have a new bin with tools" or "Where is my screwdriver?"
         </div>
-
-        <div class="voice-interface">
-            <div class="voice-status">
-                <div id="voiceCircle" class="voice-circle" onclick="toggleVoice()">🎤</div>
-                <div class="voice-prompt">
-                    <span class="status-indicator status-ready" id="statusIndicator"></span>
-                    <span id="voicePrompt">Tap to talk or say "Hey Assistant"</span>
-                </div>
-            </div>
-
-            <div class="quick-actions">
-                <button class="quick-btn" onclick="quickCommand('What\'s in my bins?')">📦 Show All Bins</button>
-                <button class="quick-btn" onclick="quickCommand('Where is my screwdriver?')">🔍 Find Item</button>
-                <button class="quick-btn" onclick="quickCommand('I have a new bin')">➕ Add New Bin</button>
-                <button class="quick-btn" onclick="quickCommand('Help me organize')">❓ Get Help</button>
-            </div>
-        </div>
-
-        <div class="camera-section">
-            <h3>📷 AI Camera Assistant</h3>
-            <p style="margin: 15px 0; opacity: 0.8;">Point your camera at a bin to automatically catalog its contents</p>
-            <button class="camera-btn" onclick="openCamera()">📸 Take Photo</button>
-            <button class="camera-btn" onclick="uploadPhoto()">🖼️ Upload Photo</button>
-            <input type="file" id="fileInput" accept="image/*" onchange="handleImageUpload(event)">
-        </div>
-
-        <div class="conversation" id="conversation">
-            <div class="message assistant-message">
-                👋 Hi! I'm your garage assistant. Try saying: "I have a new bin with electrical cords and network cables" or "Where did I put my hammer?"
-            </div>
-        </div>
-
-        <div class="bins-summary" id="binsSummary">
-            <h3>📦 Your Bins</h3>
-            <div id="binsContainer">
-                <p style="opacity: 0.6; text-align: center; padding: 20px;">No bins added yet. Start by saying "I have a new bin..."</p>
-            </div>
-        </div>
-
-        <div class="siri-integration">
-            <h3>🍎 Siri Integration</h3>
-            <p style="margin: 15px 0; opacity: 0.8;">Set up Siri Shortcuts to use voice commands from anywhere on your phone</p>
-            <a href="#" class="siri-setup" onclick="setupSiriShortcut()">Set Up Siri Shortcuts</a>
-        </div>
+        <button class="auto-start" onclick="enableAutoStart()">Enable Auto-Start</button>
+        <button class="auto-start" onclick="showCommands()">Voice Commands</button>
     </div>
 
     <script>
         let binsData = JSON.parse(localStorage.getItem('garageBins')) || {};
         let isListening = false;
+        let isSpeaking = false;
         let recognition = null;
-        let conversation = [];
+        let autoStartEnabled = localStorage.getItem('autoStart') === 'true';
 
         // Initialize on page load
         window.onload = function() {
-            updateBinsDisplay();
             initializeSpeechRecognition();
-            loadConversation();
+            
+            // Auto-start if enabled
+            if (autoStartEnabled) {
+                setTimeout(() => {
+                    if (!isListening) {
+                        startListening();
+                    }
+                }, 1000);
+            }
+            
+            // URL parameter support for Siri Shortcuts
+            const urlParams = new URLSearchParams(window.location.search);
+            const command = urlParams.get('command') || urlParams.get('q');
+            if (command) {
+                setTimeout(() => {
+                    processVoiceCommand(command);
+                }, 500);
+            }
         };
 
         function initializeSpeechRecognition() {
@@ -320,23 +159,17 @@
                 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
                 recognition = new SpeechRecognition();
                 
-                recognition.continuous = true;
-                recognition.interimResults = true;
+                recognition.continuous = false;
+                recognition.interimResults = false;
                 recognition.lang = 'en-US';
 
                 recognition.onstart = function() {
                     isListening = true;
-                    updateVoiceUI();
+                    updateUI();
                 };
 
                 recognition.onresult = function(event) {
-                    let transcript = '';
-                    for (let i = event.resultIndex; i < event.results.length; i++) {
-                        if (event.results[i].isFinal) {
-                            transcript += event.results[i][0].transcript;
-                        }
-                    }
-                    
+                    const transcript = event.results[0][0].transcript;
                     if (transcript.trim()) {
                         processVoiceCommand(transcript.trim());
                     }
@@ -344,61 +177,68 @@
 
                 recognition.onerror = function(event) {
                     console.error('Speech recognition error:', event.error);
+                    speakResponse("Sorry, I didn't catch that. Please try again.");
                     isListening = false;
-                    updateVoiceUI();
+                    updateUI();
                 };
 
                 recognition.onend = function() {
                     isListening = false;
-                    updateVoiceUI();
+                    updateUI();
+                    
+                    // Auto-restart listening if enabled and not speaking
+                    if (autoStartEnabled && !isSpeaking) {
+                        setTimeout(() => {
+                            if (!isListening && !isSpeaking) {
+                                startListening();
+                            }
+                        }, 2000);
+                    }
                 };
+            } else {
+                document.getElementById('statusText').textContent = 'Voice not supported in this browser';
             }
         }
 
         function toggleVoice() {
-            if (!recognition) {
-                addMessage('assistant', '❌ Voice recognition not supported in this browser. Please use Chrome or Safari.');
-                return;
-            }
+            if (!recognition) return;
 
             if (isListening) {
                 recognition.stop();
             } else {
+                startListening();
+            }
+        }
+
+        function startListening() {
+            if (recognition && !isListening && !isSpeaking) {
                 recognition.start();
             }
         }
 
-        function updateVoiceUI() {
+        function updateUI() {
             const circle = document.getElementById('voiceCircle');
-            const prompt = document.getElementById('voicePrompt');
-            const indicator = document.getElementById('statusIndicator');
+            const status = document.getElementById('statusText');
 
-            if (isListening) {
-                circle.classList.add('listening');
+            if (isSpeaking) {
+                circle.className = 'voice-circle speaking';
                 circle.innerHTML = '🔊';
-                prompt.textContent = 'Listening... Speak now!';
-                indicator.className = 'status-indicator status-listening';
+                status.textContent = 'Speaking...';
+            } else if (isListening) {
+                circle.className = 'voice-circle listening';
+                circle.innerHTML = '🎙️';
+                status.textContent = 'Listening...';
             } else {
-                circle.classList.remove('listening');
+                circle.className = 'voice-circle';
                 circle.innerHTML = '🎤';
-                prompt.textContent = 'Tap to talk or say "Hey Assistant"';
-                indicator.className = 'status-indicator status-ready';
+                status.textContent = autoStartEnabled ? 'Auto-listening enabled' : 'Tap to speak';
             }
         }
 
         function processVoiceCommand(command) {
-            addMessage('user', command);
-            
+            console.log('Processing command:', command);
             const response = processCommand(command.toLowerCase());
-            addMessage('assistant', response);
-            
-            // Speak the response
             speakResponse(response);
-            
-            // Stop listening after processing command
-            if (recognition && isListening) {
-                recognition.stop();
-            }
         }
 
         function processCommand(command) {
@@ -418,12 +258,17 @@
             }
             
             // List all bins
-            if (command.includes('show all') || command.includes('all bins') || command.includes('what bins')) {
+            if (command.includes('show all') || command.includes('all bins') || command.includes('what bins') || command.includes('list bins')) {
                 return handleShowAllBins();
             }
             
+            // Clear all data
+            if (command.includes('clear all') || command.includes('delete all') || command.includes('reset')) {
+                return handleClearAll();
+            }
+            
             // Help
-            if (command.includes('help')) {
+            if (command.includes('help') || command.includes('what can you do')) {
                 return handleHelp();
             }
             
@@ -431,45 +276,37 @@
         }
 
         function handleNewBin(command) {
-            // Extract bin number if mentioned
             const binMatch = command.match(/bin\s+(\d+)/);
             const binNum = binMatch ? binMatch[1] : getNextBinNumber();
             
-            // Extract items mentioned after "with" or "containing"
             let items = '';
             const withMatch = command.match(/with\s+(.+?)(?:\s+in\s+bin|\s*$)/i);
-            const containingMatch = command.match(/containing\s+(.+?)(?:\s+in\s+bin|\s*$)/i);
             
             if (withMatch) {
                 items = withMatch[1];
-            } else if (containingMatch) {
-                items = containingMatch[1];
             } else {
-                // Try to extract items from the end of the sentence
                 const words = command.split(' ');
-                const stopWords = ['i', 'have', 'a', 'new', 'bin', 'and', 'put', 'in'];
+                const stopWords = ['i', 'have', 'a', 'new', 'bin', 'and', 'put', 'in', 'with'];
                 items = words.filter(word => !stopWords.includes(word.toLowerCase())).join(' ');
             }
             
             if (items) {
                 binsData[binNum] = items;
                 saveBinsData();
-                updateBinsDisplay();
-                return `✅ Perfect! I've added Bin ${binNum} with: ${items}`;
+                return `Added bin ${binNum} with ${items}`;
             } else {
-                return `🤔 I heard you want to add a new bin, but I didn't catch what items to put in it. Try saying "I have a new bin with screwdrivers and hammers"`;
+                return "I heard you want to add a new bin, but I didn't catch what items to put in it. Try saying 'I have a new bin with screwdrivers and hammers'";
             }
         }
 
         function handleFindItem(command) {
-            // Extract the item being searched for
             const whereMatch = command.match(/where\s+(?:is\s+)?(?:my\s+)?(.+?)(?:\?|$)/i);
             const findMatch = command.match(/find\s+(?:my\s+)?(.+?)(?:\?|$)/i);
             
             const searchTerm = whereMatch ? whereMatch[1] : (findMatch ? findMatch[1] : '');
             
             if (!searchTerm) {
-                return "🤔 What item are you looking for? Try saying 'Where is my screwdriver?'";
+                return "What item are you looking for? Try saying 'Where is my screwdriver?'";
             }
             
             const results = [];
@@ -480,9 +317,9 @@
             }
             
             if (results.length > 0) {
-                return `🎯 Found "${searchTerm}" in Bin ${results.join(' and Bin ')}`;
+                return `Found ${searchTerm} in bin ${results.join(' and bin ')}`;
             } else {
-                return `❌ I couldn't find "${searchTerm}" in any of your bins. Try checking your spelling or add it to a bin!`;
+                return `I couldn't find ${searchTerm} in any of your bins.`;
             }
         }
 
@@ -491,39 +328,37 @@
             if (binMatch) {
                 const binNum = binMatch[1];
                 if (binsData[binNum]) {
-                    return `📦 Bin ${binNum} contains: ${binsData[binNum]}`;
+                    return `Bin ${binNum} contains ${binsData[binNum]}`;
                 } else {
-                    return `❓ Bin ${binNum} is empty or doesn't exist yet.`;
+                    return `Bin ${binNum} is empty or doesn't exist yet.`;
                 }
             }
-            return "🤔 Which bin number do you want to see? Try saying 'What's in bin 3?'";
+            return "Which bin number do you want to see? Try saying 'What's in bin 3?'";
         }
 
         function handleShowAllBins() {
             if (Object.keys(binsData).length === 0) {
-                return "📦 You don't have any bins yet! Say 'I have a new bin with tools' to get started.";
+                return "You don't have any bins yet. Say 'I have a new bin with tools' to get started.";
             }
             
-            let response = "📦 Here are all your bins:\n\n";
             const sortedBins = Object.keys(binsData).sort((a, b) => parseInt(a) - parseInt(b));
+            let response = `You have ${sortedBins.length} bins. `;
             
-            sortedBins.forEach(binNum => {
-                response += `Bin ${binNum}: ${binsData[binNum]}\n`;
+            sortedBins.forEach((binNum, index) => {
+                response += `Bin ${binNum} has ${binsData[binNum]}. `;
             });
             
             return response;
         }
 
+        function handleClearAll() {
+            binsData = {};
+            saveBinsData();
+            return "All bins have been cleared.";
+        }
+
         function handleHelp() {
-            return `🤖 Here's what I can help you with:
-
-• "I have a new bin with screwdrivers and hammers"
-• "Where is my drill?"
-• "What's in bin 3?"
-• "Show me all my bins"
-• Take a photo to catalog bin contents automatically
-
-Just talk naturally - I'll understand!`;
+            return `I can help you organize your garage bins. Say 'I have a new bin with screwdrivers and hammers' to add items. Say 'Where is my drill?' to find things. Say 'What's in bin 3?' to check a specific bin. Or say 'Show me all my bins' to hear everything.`;
         }
 
         function getNextBinNumber() {
@@ -531,153 +366,81 @@ Just talk naturally - I'll understand!`;
             return existingBins.length === 0 ? 1 : Math.max(...existingBins) + 1;
         }
 
-        function quickCommand(command) {
-            addMessage('user', command);
-            const response = processCommand(command.toLowerCase());
-            addMessage('assistant', response);
-            speakResponse(response);
-        }
-
-        function addMessage(sender, text) {
-            const conversationDiv = document.getElementById('conversation');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}-message`;
-            messageDiv.textContent = text;
-            conversationDiv.appendChild(messageDiv);
-            conversationDiv.scrollTop = conversationDiv.scrollHeight;
-            
-            // Save conversation
-            conversation.push({sender, text, timestamp: Date.now()});
-            localStorage.setItem('garageConversation', JSON.stringify(conversation));
-        }
-
         function speakResponse(text) {
             if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech
                 speechSynthesis.cancel();
                 
-                // Clean up text for better speech (remove emojis and formatting)
-                const cleanText = text.replace(/[📦🎯✅❌🤔❓🔍➕❓📷🤖👋🍎]/g, '')
-                                     .replace(/\n/g, ' ')
-                                     .trim();
-                
+                const cleanText = text.replace(/[^\w\s,.!?]/g, '').trim();
                 const utterance = new SpeechSynthesisUtterance(cleanText);
                 
-                // Configure voice settings
                 utterance.rate = 0.9;
                 utterance.pitch = 1.0;
                 utterance.volume = 0.8;
                 
-                // Try to use a pleasant voice
                 const voices = speechSynthesis.getVoices();
                 const preferredVoice = voices.find(voice => 
                     voice.name.includes('Samantha') || 
                     voice.name.includes('Karen') || 
                     voice.name.includes('Siri') ||
-                    voice.lang.includes('en-US')
+                    (voice.lang.includes('en-US') && voice.name.includes('Female'))
                 );
                 
                 if (preferredVoice) {
                     utterance.voice = preferredVoice;
                 }
                 
-                // Update UI to show speaking status
-                const indicator = document.getElementById('statusIndicator');
-                const prompt = document.getElementById('voicePrompt');
-                
                 utterance.onstart = function() {
-                    indicator.className = 'status-indicator status-processing';
-                    prompt.textContent = 'Speaking...';
+                    isSpeaking = true;
+                    updateUI();
                 };
                 
                 utterance.onend = function() {
-                    indicator.className = 'status-indicator status-ready';
-                    prompt.textContent = 'Tap to talk or say "Hey Assistant"';
+                    isSpeaking = false;
+                    updateUI();
+                    
+                    // Resume listening if auto-start is enabled
+                    if (autoStartEnabled) {
+                        setTimeout(() => {
+                            if (!isListening && !isSpeaking) {
+                                startListening();
+                            }
+                        }, 1000);
+                    }
                 };
                 
                 speechSynthesis.speak(utterance);
             }
         }
 
-        function loadConversation() {
-            conversation = JSON.parse(localStorage.getItem('garageConversation')) || [];
-            // Load only recent messages (last 10)
-            const recentConversation = conversation.slice(-10);
-            const conversationDiv = document.getElementById('conversation');
+        function enableAutoStart() {
+            autoStartEnabled = !autoStartEnabled;
+            localStorage.setItem('autoStart', autoStartEnabled.toString());
             
-            recentConversation.forEach(msg => {
-                if (msg.sender !== 'assistant' || !msg.text.includes('Hi! I\'m your garage assistant')) {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = `message ${msg.sender}-message`;
-                    messageDiv.textContent = msg.text;
-                    conversationDiv.appendChild(messageDiv);
+            if (autoStartEnabled) {
+                speakResponse("Auto-start enabled. I'll automatically listen for your commands.");
+                setTimeout(() => {
+                    if (!isListening) {
+                        startListening();
+                    }
+                }, 2000);
+            } else {
+                speakResponse("Auto-start disabled. Tap the microphone to talk.");
+                if (isListening) {
+                    recognition.stop();
                 }
-            });
-        }
-
-        function updateBinsDisplay() {
-            const container = document.getElementById('binsContainer');
-            
-            if (Object.keys(binsData).length === 0) {
-                container.innerHTML = '<p style="opacity: 0.6; text-align: center; padding: 20px;">No bins added yet. Start by saying "I have a new bin..."</p>';
-                return;
             }
             
-            container.innerHTML = '';
-            const sortedBins = Object.keys(binsData).sort((a, b) => parseInt(a) - parseInt(b));
-            
-            sortedBins.forEach(binNum => {
-                const binDiv = document.createElement('div');
-                binDiv.className = 'bin-item';
-                binDiv.innerHTML = `
-                    <div class="bin-number">Bin ${binNum}</div>
-                    <div class="bin-contents">${binsData[binNum]}</div>
-                `;
-                container.appendChild(binDiv);
-            });
+            updateUI();
+        }
+
+        function showCommands() {
+            const commands = `Here are some things you can say: I have a new bin with electrical cords. Where is my screwdriver? What's in bin 3? Show me all my bins. Clear all bins. Enable auto start.`;
+            speakResponse(commands);
         }
 
         function saveBinsData() {
             localStorage.setItem('garageBins', JSON.stringify(binsData));
         }
-
-        function openCamera() {
-            addMessage('assistant', '📷 Camera feature coming soon! For now, you can upload a photo of your bin contents.');
-        }
-
-        function uploadPhoto() {
-            document.getElementById('fileInput').click();
-        }
-
-        function handleImageUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                addMessage('user', '📷 Uploaded photo of bin contents');
-                const response = '🤖 AI image analysis coming soon! For now, please tell me what you see in the photo by saying "I have a new bin with [items you see]"';
-                addMessage('assistant', response);
-                speakResponse(response);
-            }
-        }
-
-        function setupSiriShortcut() {
-            const shortcutText = `
-To set up Siri Shortcuts:
-
-1. Open the Shortcuts app on your iPhone
-2. Tap the "+" to create a new shortcut
-3. Add action "Open URLs" 
-4. Enter this page's URL
-5. Add action "Ask for Input" with prompt "What would you like to do with your garage bins?"
-6. Record phrase like "Check my garage bins"
-
-This lets you say "Hey Siri, check my garage bins" from anywhere!
-            `;
-            
-            addMessage('assistant', shortcutText);
-        }
-
-        // Auto-save data periodically
-        setInterval(saveBinsData, 30000); // Save every 30 seconds
     </script>
 </body>
 </html>
