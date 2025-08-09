@@ -392,6 +392,9 @@
             const response = processCommand(command.toLowerCase());
             addMessage('assistant', response);
             
+            // Speak the response
+            speakResponse(response);
+            
             // Stop listening after processing command
             if (recognition && isListening) {
                 recognition.stop();
@@ -532,6 +535,7 @@ Just talk naturally - I'll understand!`;
             addMessage('user', command);
             const response = processCommand(command.toLowerCase());
             addMessage('assistant', response);
+            speakResponse(response);
         }
 
         function addMessage(sender, text) {
@@ -545,6 +549,54 @@ Just talk naturally - I'll understand!`;
             // Save conversation
             conversation.push({sender, text, timestamp: Date.now()});
             localStorage.setItem('garageConversation', JSON.stringify(conversation));
+        }
+
+        function speakResponse(text) {
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                // Clean up text for better speech (remove emojis and formatting)
+                const cleanText = text.replace(/[📦🎯✅❌🤔❓🔍➕❓📷🤖👋🍎]/g, '')
+                                     .replace(/\n/g, ' ')
+                                     .trim();
+                
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                
+                // Configure voice settings
+                utterance.rate = 0.9;
+                utterance.pitch = 1.0;
+                utterance.volume = 0.8;
+                
+                // Try to use a pleasant voice
+                const voices = speechSynthesis.getVoices();
+                const preferredVoice = voices.find(voice => 
+                    voice.name.includes('Samantha') || 
+                    voice.name.includes('Karen') || 
+                    voice.name.includes('Siri') ||
+                    voice.lang.includes('en-US')
+                );
+                
+                if (preferredVoice) {
+                    utterance.voice = preferredVoice;
+                }
+                
+                // Update UI to show speaking status
+                const indicator = document.getElementById('statusIndicator');
+                const prompt = document.getElementById('voicePrompt');
+                
+                utterance.onstart = function() {
+                    indicator.className = 'status-indicator status-processing';
+                    prompt.textContent = 'Speaking...';
+                };
+                
+                utterance.onend = function() {
+                    indicator.className = 'status-indicator status-ready';
+                    prompt.textContent = 'Tap to talk or say "Hey Assistant"';
+                };
+                
+                speechSynthesis.speak(utterance);
+            }
         }
 
         function loadConversation() {
@@ -601,7 +653,9 @@ Just talk naturally - I'll understand!`;
             const file = event.target.files[0];
             if (file) {
                 addMessage('user', '📷 Uploaded photo of bin contents');
-                addMessage('assistant', '🤖 AI image analysis coming soon! For now, please tell me what you see in the photo by saying "I have a new bin with [items you see]"');
+                const response = '🤖 AI image analysis coming soon! For now, please tell me what you see in the photo by saying "I have a new bin with [items you see]"';
+                addMessage('assistant', response);
+                speakResponse(response);
             }
         }
 
